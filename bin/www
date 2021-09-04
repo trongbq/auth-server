@@ -6,7 +6,7 @@
 
 var appDestination = (process.env.ENV || 'development') === 'production' ? '../app' : '../dist/app';
 
-var app = require(appDestination).default;
+var app = require(appDestination + '/app').default;
 
 var debug = require('debug')('temp:server');
 var http = require('http');

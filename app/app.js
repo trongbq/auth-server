@@ -6,8 +6,8 @@ import userRouter from './users/router';
 const app = express();
 
 app.get('/', (req, res, next) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({ a: 2 }));
+    res.setHeader('Content-Type', 'application/text');
+    res.end('Welcome to Auth Server');
 });
 
 app.use('/', userRouter);
