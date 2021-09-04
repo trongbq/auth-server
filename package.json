@@ -1,0 +1,37 @@
+{
+  "name": "auth-server",
+  "version": "1.0.0",
+  "description": "Auth Server follows OAuth 2 and OpenID Connect protocol",
+  "main": "bin/www",
+  "scripts": {
+    "build": "rimraf dist/ && ./node_modules/.bin/babel ./ --out-dir dist/ --ignore ./node_modules,./babel.config.json,./package.json,./npm-debug.log",
+    "start": "nodemon -i ./dist -x \"npm run build && node ./bin/www\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trongbq/auth-server.git"
+  },
+  "keywords": [
+    "auth-server",
+    "oauth2",
+    "openid_connect"
+  ],
+  "author": "Trong Bui",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/trongbq/auth-server/issues"
+  },
+  "homepage": "https://github.com/trongbq/auth-server#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.4",
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.4",
+    "jest": "^27.1.0",
+    "rimraf": "^3.0.2"
+  }
+}
