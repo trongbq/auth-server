@@ -1,10 +1,10 @@
-FROM node:16-bullseye as build
+FROM node:16-bullseye AS base
 
 WORKDIR /build
-
 COPY . .
-
 RUN npm install
+
+FROM base AS build
 RUN npm run build
 
 FROM node:16-bullseye-slim
