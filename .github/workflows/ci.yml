@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-  check:
+  pr_status_check:
     runs-on: ubuntu-latest
     timeout-minutes:  15
 
