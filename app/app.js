@@ -2,12 +2,12 @@ import express from 'express';
 
 import userRouter from './users/router';
 
-
 const app = express();
 
 app.get('/', (req, res, next) => {
-    res.setHeader('Content-Type', 'application/text');
-    res.end('Welcome to Auth Server');
+  res.setHeader('Content-Type', 'application/text');
+  res.end('Welcome to Auth Server');
+  next();
 });
 
 app.use('/', userRouter);

@@ -1,0 +1,23 @@
+{
+    "extends": [
+        "airbnb-base",
+        "plugin:prettier/recommended"
+    ],
+    "plugins": [
+        "prettier"
+    ],
+    "rules": {
+        "prettier/prettier": "error"
+    },
+    "ignorePatterns": ["dist"],
+    "overrides": [
+        {
+            "files": [
+                "**/*.test.js"
+            ],
+            "env": {
+                "jest": true
+            }
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 const config = {
   verbose: true,
-  modulePathIgnorePatterns: ['dist']
+  modulePathIgnorePatterns: ['dist'],
 };
 
 module.exports = config;
