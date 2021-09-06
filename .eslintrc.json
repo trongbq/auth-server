@@ -9,7 +9,7 @@
     "rules": {
         "prettier/prettier": "error"
     },
-    "ignorePatterns": ["dist", "/jest.config.js"],
+    "ignorePatterns": ["dist"],
     "overrides": [
         {
             "files": [
