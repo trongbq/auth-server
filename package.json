@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rimraf dist/ && ./node_modules/.bin/babel ./ --out-dir dist/ --ignore ./node_modules,./babel.config.json,./package.json,./npm-debug.log",
     "start": "nodemon -i ./dist -x \"npm run build && node ./bin/www\"",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -32,7 +33,13 @@
     "@babel/cli": "^7.15.4",
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.4",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.1.0",
+    "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
     "supertest": "^6.1.6"
   }
