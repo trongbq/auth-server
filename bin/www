@@ -4,57 +4,24 @@
  * Module dependencies.
  */
 
-var appDestination = (process.env.ENV || 'development') === 'production' ? '../app' : '../dist/app';
+var env = process.env.NODE_ENV || 'development';
+var appDestination = env === 'production' ? '../app' : '../dist/app';
+var app = require(appDestination + '/app');
 
-var app = require(appDestination + '/app').default;
-
-var debug = require('debug')('temp:server');
 var http = require('http');
 
-/**
- * Get port from environment and store in Express.
- */
+var port = parseInt(process.env.PORT) || '3000';
+app.setPort(port);
 
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-var server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
+var server = http.createServer(app.default);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
+if (env === 'production') {
+  process.on('SIGTERM', terminate);
+  process.on('SIGINT', terminate);
 }
-
-/**
- * Event listener for HTTP server "error" event.
- */
 
 function onError(error) {
   if (error.syscall !== 'listen') {
@@ -80,14 +47,19 @@ function onError(error) {
   }
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
-
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  console.log('Listening on ' + bind);
+}
+
+function terminate() {
+  console.log('Terminate signal received: closing HTTP server')
+  server.close(() => {
+    console.log('HTTP server closed');
+    app.close();
+    process.exit(1);
+  })
 }
