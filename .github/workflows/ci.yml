@@ -13,10 +13,4 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build docker-compose
-        run: docker-compose up -d
-      
-      - name: Linting
-        run: docker-compose exec auth-server npm run lint
-
-      - name: Testing
-        run: docker-compose exec auth-server npm run test
+        run: docker-compose -f docker-compose.ci.yml up --build -d

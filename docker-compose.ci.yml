@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  auth-server:
+    build:
+      context: .
+      target: base
+    container_name: auth-server-main
+    environment:
+      NODE_ENV: 'development'
+      DB_HOST: mongodb
+      DB_PORT: 27017
+      DB_NAME: auth_server
+      DB_USERNAME: appuser
+      DB_PASSWORD: AbCdEfGh
+    command:
+      - |
+        echo "Run linting"
+        npm run lint
+        echo "Run testing"
+        npm run test
+        echo "Done"
+
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/source
+    ports:
+      - 3000:3000
+
+  mongodb:
+    image: mongo:5.0.2
+    container_name: "auth-server-mongo"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: appuser
+      MONGO_INITDB_ROOT_PASSWORD: AbCdEfGh
+    volumes:
+      - ./mongodata:/data/db
+    ports:
+      - '27017-27019:27017-27019'
