@@ -4,10 +4,11 @@
   "description": "Auth Server follows OAuth 2 and OpenID Connect protocol",
   "main": "bin/www",
   "scripts": {
-    "build": "rimraf dist/ && ./node_modules/.bin/babel ./ --out-dir dist/ --ignore ./node_modules,./babel.config.json,./package.json,./npm-debug.log",
-    "start": "nodemon -i ./dist -x \"npm run build && ./bin/www\"",
+    "build": "rimraf dist/ && babel app -d dist",
+    "start": "nodemon -i ./dist -x \"npm run build && node ./dist/server.js\"",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -26,14 +27,13 @@
   "homepage": "https://github.com/trongbq/auth-server#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongodb": "^4.1.1"
+    "mongodb": "^4.1.1",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.4",
     "@babel/core": "^7.15.5",
-    "@babel/plugin-transform-runtime": "^7.15.0",
     "@babel/preset-env": "^7.15.4",
-    "dotenv": "^10.0.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",

@@ -1,6 +1,6 @@
 FROM node:16-bullseye AS base
 
-WORKDIR /build
+WORKDIR /source
 COPY . .
 RUN npm install
 
@@ -9,16 +9,15 @@ RUN npm run build
 
 FROM node:16-bullseye-slim
 
-EXPOSE 8080
+EXPOSE 3000
 
-ENV PORT 8080
+ENV PORT 3000
 ENV NODE_ENV production
 
 WORKDIR /app
 
-COPY --from=build /build/dist /build/package.json /build/package-lock.json ./
-COPY --from=build /build/bin ./bin
+COPY --from=build /source/dist /source/package.json /source/package-lock.json ./
 
 RUN npm install --only=production
 
-CMD ["/app/bin/www"]
+CMD ["node", "server.js"]

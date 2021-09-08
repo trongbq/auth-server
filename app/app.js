@@ -1,24 +1,25 @@
 import express from 'express';
 import userRouter from './users/router';
-import { init as dbinit, close as dbclose } from './database/client';
+// import {
+//   connect as dbConnect,
+//   disconnect as dbDisconnect,
+// } from './database/client';
 
 const app = express();
 
 app.get('/', (req, res, next) => {
-  res.end('Welcome to Auth Server');
+  res.end('Welcome to Auth Server!!');
   next();
 });
 
 app.use('/', userRouter);
 
-(async function() {
-  await dbinit();
-})();
+export async function init() {
+  // await dbConnect();
+}
 
-export function close() {
-  (async function() {
-    await dbclose();
-  })();
+export async function close() {
+  // await dbDisconnect();
 }
 
 export function setPort(port) {

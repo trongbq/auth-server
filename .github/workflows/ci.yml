@@ -12,11 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build Docker image
-        run: docker build . -t auth-server-test --target=base
+      - name: Build docker-compose
+        run: docker-compose up -d
       
       - name: Linting
-        run: docker run -i auth-server-test sh -c "npm run lint" 
+        run: docker-compose exec auth-server npm run lint
 
       - name: Testing
-        run: docker run -i auth-server-test sh -c "npm run test" 
+        run: docker-compose exec auth-server npm run test

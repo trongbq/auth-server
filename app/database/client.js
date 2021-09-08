@@ -1,32 +1,33 @@
-import { MongoClient} from 'mongodb';
+import { MongoClient } from 'mongodb';
 import config from '../config';
+import logger from '../logger';
 
-const uri = 
-  `mongodb://${config.db.username}:${config.db.password}@${config.db.host}:${config.db.port}`;
+const uri = `mongodb://${config.db.username}:${config.db.password}@${config.db.host}:${config.db.port}`;
 
-const client = new MongoClient(uri)
+const client = new MongoClient(uri);
 
+// TODO: avoid use exported let variable
+// eslint-disable-next-line import/no-mutable-exports
 let db;
 
-async function init() {
+async function connect() {
   try {
     await client.connect();
-
-    const db = client.db(config.db.name);
-    db.command({ping: 1});
-    console.log('Connected successfully to mongodb server!');
+    db = client.db(config.db.name);
+    await db.command({ ping: 1 });
+    logger.info('Connected successfully to mongodb server!');
   } catch (err) {
-    console.error(`Can not connect to database: ${err}`)
+    logger.error(`Can not connect to database: ${err}`);
     await client.close();
     process.exit(1);
   }
 }
 
-async function close() {
-  console.log('Closing mongodb server connection!')
+async function disconnect() {
+  logger.info('Closing mongodb server connection!');
   await client.close();
 }
 
-export { db, init, close };
+export { db, connect, disconnect };
 
 export default client;
