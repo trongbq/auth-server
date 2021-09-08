@@ -1,9 +1,9 @@
 import express from 'express';
 import userRouter from './users/router';
-// import {
-//   connect as dbConnect,
-//   disconnect as dbDisconnect,
-// } from './database/client';
+import {
+  connect as dbConnect,
+  disconnect as dbDisconnect,
+} from './database/client';
 
 const app = express();
 
@@ -15,11 +15,11 @@ app.get('/', (req, res, next) => {
 app.use('/', userRouter);
 
 export async function init() {
-  // await dbConnect();
+  await dbConnect();
 }
 
 export async function close() {
-  // await dbDisconnect();
+  await dbDisconnect();
 }
 
 export function setPort(port) {
