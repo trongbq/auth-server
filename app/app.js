@@ -1,15 +1,15 @@
 import express from 'express';
-import userRouter from './users/router';
+import userRouter from './client/router';
 import {
   connect as dbConnect,
   disconnect as dbDisconnect,
 } from './database/client';
 
 const app = express();
+app.use(express.json())
 
 app.get('/', (req, res, next) => {
   res.end('Welcome to Auth Server!!');
-  next();
 });
 
 app.use('/', userRouter);

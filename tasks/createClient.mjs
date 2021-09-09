@@ -4,12 +4,12 @@ import crypto from 'crypto';
 var uri = `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}`;
 const client = new MongoClient(uri);
 
-async function createClient(clientID) {
+async function createClient(clientId) {
   try {
     const doc = {
-      client_id: clientID,
-      client_secret: crypto.randomBytes(23).toString('hex'),
-      created_at: new Date(),
+      clientId: clientId,
+      clientSecret: crypto.randomBytes(23).toString('hex'),
+      createdAt: new Date(),
     }
     await client.connect();
     const database = client.db(process.env.DB_NAME);
@@ -20,12 +20,12 @@ async function createClient(clientID) {
   }
 }
 
-const clientID = process.env.CLIENT_ID;
-if (!clientID) {
+const clientId = process.env.CLIENT_ID;
+if (!clientId) {
   console.error('Client ID is required, please set CLIENT_ID!');
   process.exit(1);
 }
 
-console.log(`Creating client with client_id: ${clientID}`);
-await createClient(clientID);
+console.log(`Creating client with client_id: ${clientId}`);
+await createClient(clientId);
 console.log('DONE');
