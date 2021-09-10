@@ -1,19 +1,28 @@
-import { body } from 'express-validator';
+import Joi from 'joi';
 import { saveUser } from './repository';
 
-export function validators() {
-  return [
-    body('email', 'Invalid email').exists().isEmail(),
-    body('password', 'Invalid password').exists(),
-  ];
-}
+const schema = Joi.object({
+  username: Joi.string()
+               .alphanum()
+               .min(2)
+               .max(30)
+               .required(),
+  email: Joi.string()
+            .email()
+            .required(),
+  password: Joi.string()
+               .min(6)
+               .max(30)
+               .required(),
+});
 
 async function registerUser(req, res, next) {
   // Validate input
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
+  Joi.assert({ username, email, password }, schema);
 
   // Save to database
-  await saveUser(email, password);
+  await saveUser(username, email, password);
   
   res.status(201).end();
 }

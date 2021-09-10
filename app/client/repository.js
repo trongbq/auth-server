@@ -13,13 +13,14 @@ export function getClient(clientId) {
   return db.collection(TABLE_CLIENTS).findOne(query, {});
 }
 
-export async function saveUser(email, password) {
+export async function saveUser(username, email, password) {
   const doc = {
+    username,
     email,
     password: await hashPassword(password),
     registeredAt: new Date(),
   };
+  
   const result = await db.collection(TABLE_USERS).insertOne(doc);
-  logger.info(JSON.stringify(result));
   return result.insertedId;
 }
