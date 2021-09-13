@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
-import { db } from '../database/client';
-import { TABLE_CLIENTS, TABLE_USERS } from '../database/tables';
-import logger from '../logger';
+import { db } from '../lib/database/client';
+import { TABLE_CLIENTS, TABLE_USERS } from '../lib/database/tables';
+import logger from '../lib/logger';
 
 async function hashPassword(pw) {
   const salt = await bcrypt.genSalt();
@@ -22,5 +22,7 @@ export async function saveUser(username, email, password) {
   };
   
   const result = await db.collection(TABLE_USERS).insertOne(doc);
+  logger.debug(`Saved user to database: ${result}`);
+
   return result.insertedId;
 }

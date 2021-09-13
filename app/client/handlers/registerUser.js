@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { saveUser } from './repository';
+import { saveUser } from '../repository';
 
 const schema = Joi.object({
   username: Joi.string()

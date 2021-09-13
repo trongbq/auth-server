@@ -3,7 +3,7 @@ import userRouter from './client/router';
 import {
   connect as dbConnect,
   disconnect as dbDisconnect,
-} from './database/client';
+} from './lib/database/client';
 
 const app = express();
 app.use(express.json())
