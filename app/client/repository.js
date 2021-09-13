@@ -22,7 +22,7 @@ export async function saveUser(username, email, password) {
   };
   
   const result = await db.collection(TABLE_USERS).insertOne(doc);
-  logger.debug(`Saved user to database: ${result}`);
+  logger.debug(`Saved user to database: ${JSON.stringify(result)}`);
 
   return result.insertedId;
 }
