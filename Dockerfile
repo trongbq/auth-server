@@ -1,4 +1,4 @@
-FROM node:16-bullseye AS base
+FROM node:19-bullseye AS base
 
 WORKDIR /source
 COPY . .
@@ -7,7 +7,7 @@ RUN npm install
 FROM base AS build
 RUN npm run build
 
-FROM node:16-bullseye-slim
+FROM node:19-bullseye-slim
 
 EXPOSE 3000
 
